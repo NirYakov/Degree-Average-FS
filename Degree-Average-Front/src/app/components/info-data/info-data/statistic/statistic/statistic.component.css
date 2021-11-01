@@ -1,0 +1,29 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.sidespace {
+  margin-left: 4rem;
+}
+
+mat-divider {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.make-red {
+  color: whitesmoke;
+  background-color: red;
+}
+
+.box {
+  /* display: flex; */
+ align-items: center;
+  justify-content: center;
+}

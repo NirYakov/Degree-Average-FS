@@ -1,0 +1,20 @@
+.centeralize {
+    /* display: flex; */
+    
+    /* min-width: 40%; */
+    /* max-width: 100%; */
+    align-items: center;
+    justify-content: center;
+   
+   
+    /* width: 60rem; */ /* Nice short*/
+    
+    
+}
+
+
+main {
+    margin-top: 2rem;
+    width: 80%;
+    margin: auto;
+  }

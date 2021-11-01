@@ -1,0 +1,82 @@
+<form class="example-form box">
+
+  <h2>Current Average : {{avrg}}</h2>
+  <mat-divider></mat-divider>
+
+
+  <mat-form-field class="example-full-width" appearance="standard">
+    <mat-label>Average</mat-label>
+    <input mdInput type="number" [formControl]="averageControl" matInput placeholder="Average" [value]="avrg"
+      [min]="avrg" max="100" step="0.5">
+  </mat-form-field>
+
+
+
+  <h2>Wanted Average : {{averageControl.value}}</h2>
+  <p></p>
+
+  <p>Next Test With To Get The Average : </p>
+
+  <!-- min="{{avrg}}" -->
+
+  <div class="sidespace">
+
+    <p [ngClass]="{'make-red' : numberThreePoints > 100 }"> Three Points : {{numberThreePoints}}</p>
+    <p [ngClass]="{'make-red' :  numberFourPoints > 100 }"> Four Points : {{numberFourPoints}}</p>
+    <p [ngClass]="{'make-red' :   numberFivePoints > 100 }"> Five Points : {{numberFivePoints}}</p>
+
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <section>
+    <div class="example-button-row">
+      <button mat-stroked-button color="primary" (click)="logit()">Primary</button>
+      <a mat-stroked-button href="https://www.google.com/" target="_blank">Link</a>
+    </div>
+  </section>
+  <mat-divider></mat-divider>
+
+
+
+
+  <!-- [formControl]="emailFormControl" -->
+
+  <form class="example-form">
+    <mat-form-field class="example-full-width" appearance="standard">
+      <mat-label>Points</mat-label>
+      <input mdInput [formControl]="emailFormControl" type="number" matInput placeholder="Points" value="value" min="0"
+        max="12" step="0.5">
+    </mat-form-field>
+  </form>
+
+  <div class="sidespace">
+    <p>Value : {{value}}</p>
+    <p>Value FormControl : {{emailFormControl.value}}</p>
+    <p [ngClass]="{'make-red' :   numberFreePoints > 100 }">Freestyle Points : {{ numberFreePoints }}</p>
+  </div>
+
+  <mat-divider></mat-divider>
+
+
+  <H2>Best Courses To Improve : </H2>
+
+  <div class="sidespace">
+
+    <p> First : {{firstDeltaCourse}}</p>
+    <p> Second : {{secondDeltaCourse}}</p>
+
+  </div>
+
+  <mat-divider></mat-divider>
+
+
+  <!-- <div *ngFor="let item of courses">
+
+    <p>
+
+      Name : {{item.course}} , Delta : {{  ((100 - item.mark  )* item.points) }}
+
+    </p>
+
+  </div> -->
