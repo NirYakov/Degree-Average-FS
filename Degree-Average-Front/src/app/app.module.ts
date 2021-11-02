@@ -23,6 +23,7 @@ import { AddCourseComponent } from './components/add-course/add-course/add-cours
 
 import {MatError, MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatPaginatorModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatSortModule
     
    // MatError
 

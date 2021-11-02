@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { ICourse } from '../models/ICourse';
 import { round2AfterThePoint } from '../utills/SomeUtills';
 
+
 @Injectable()
 export class CoursesService implements OnInit {
 
@@ -17,7 +18,6 @@ export class CoursesService implements OnInit {
     this.average = this.markValue / this.points;
     this.average = round2AfterThePoint(this.average);
 
-    console.log("Ctorrrr");
     this.sortByTime();
   }
 
@@ -41,8 +41,25 @@ export class CoursesService implements OnInit {
 
   addCourse(course: ICourse) {
     // this.data.push(course);
+
+    console.log(course);
+
+    this.calculateNewAverage(course.mark, course.points);
+
     this.data.unshift(course);
   }
+
+  calculateNewAverage(mark: number, points: number, addValue: boolean = true) {
+
+    if (!addValue) {
+      points *= -1;
+    }
+
+    this.markValue += mark * points;
+    this.points += points;
+    this.average = this.markValue / this.points;
+  }
+
 
 
   sortByTime() {

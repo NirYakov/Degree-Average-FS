@@ -1,100 +1,72 @@
-<form class="example-form">
 
 
-  <!-- <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Average</mat-label>
-      <input mdInput type="number" [formControl]="averageControl" matInput placeholder="Average" [value]="avrg"
-        [min]="avrg" max="100" step="0.5">
-    </mat-form-field> -->
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="example-form">
 
 
   <mat-divider></mat-divider>
 
 
 
-  <!-- <mat-divider></mat-divider>
-  
-  
-    <mat-divider></mat-divider>
-  
-  
-  
-    <mat-divider></mat-divider>
-  
-    <mat-divider></mat-divider> -->
 
   <div class="example-container">
-<!--    -->
+
+
+    <mat-form-field hintLabel="Max 24 characters" appearance="standard">
+      <mat-label>Course Name</mat-label>
+      <input matInput #input maxlength="24" placeholder="Yoga..." formControlName="course">
+      <mat-hint align="end">{{input.value?.length || 0}}/24</mat-hint>
+    </mat-form-field>
+
+    <p></p>
+
+
+    <mat-form-field class="example-full-width" appearance="standard">
+      <mat-label>Mark</mat-label>
+      <input mdInput type="number" matInput placeholder="Mark" [value]="80" min="0" max="100" step="1"  formControlName="mark">
+    </mat-form-field>
+
+    <p></p>
+
+    <mat-form-field class="example-full-width" appearance="standard">
+      <mat-label>Points</mat-label>
+      <input mdInput type="number" matInput placeholder="Points" min="0" max="12" step="0.5" formControlName="points">
+    </mat-form-field>
 
 
     <p></p>
 
-    <mat-form-field hintLabel="Max 24 characters" appearance="standard">
-      <mat-label>Course Name</mat-label>
-      <input matInput #input maxlength="24" placeholder="Yoga...">
-      <mat-hint align="end">{{input.value?.length || 0}}/24</mat-hint>
-    </mat-form-field>
-
-<p></p>
-
-
-<mat-form-field class="example-full-width" appearance="standard">
-  <mat-label>Mark</mat-label>
-  <input mdInput type="number" matInput placeholder="Mark" [value]="80"
-    min="0" max="100" step="1">
-</mat-form-field>
-
-<p></p>
-
-
-<!-- 
-<mat-form-field class="example-full-width" appearance="fill">
-  <mat-label>Average</mat-label>
-  <input mdInput type="number" [formControl]="averageControl" matInput placeholder="Average" [value]="avrg"
-    [min]="avrg" max="100" step="0.5">
-</mat-form-field> -->
-
-
-
-<p></p>
-
-    <mat-form-field appearance="standard">
+    <mat-form-field appearance="standard" >
       <mat-label>Semester</mat-label>
-      <mat-select>
-        <mat-option value="option">A</mat-option>
-        <mat-option value="option">B</mat-option>
-        <mat-option value="option">C</mat-option>
+
+
+      <mat-select  [(value)]="selectedSemester" formControlName="semester" >
+        <mat-option [value]="semester" *ngFor="let semester of semesters">{{ semester }}
+        </mat-option>
+
       </mat-select>
       <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
     </mat-form-field>
 
 
-  <p></p>
+    <p></p>
 
     <mat-form-field appearance="standard">
       <mat-label>Year</mat-label>
-      <mat-select >
-        <mat-option *ngFor="let item of numbers" value="option">{{item+1}}</mat-option>
+      <mat-select [(value)]="selectedYear"  formControlName="year" >
+        <mat-option [value]="item"  *ngFor="let item of numbers" value="option">{{item}}</mat-option>
       </mat-select>
       <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
     </mat-form-field>
-    
+
 
   </div>
 
-  <p>
-    <mat-form-field appearance="standard">
-      <mat-label>Standard form field</mat-label>
-      <input matInput placeholder="Placeholder">
-      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-      <mat-hint>Hint</mat-hint>
-    </mat-form-field>
-  </p>
 
+  <div style="margin-top: 2rem;"></div>
 
   <section>
     <div class="example-button-row">
-      <button mat-stroked-button color="primary" (click)="foo()">Primary</button>
+      <button type="submit" mat-stroked-button color="primary">Add</button>
     </div>
   </section>
 

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { NavigationEnd, Router } from '@angular/router';
 import { ICourse } from 'src/app/models/ICourse';
 import { CoursesService } from 'src/app/services/courses.service';
-import { round0AfterThePoint } from 'src/app/utills/SomeUtills';
+import { round0AfterThePoint, round2AfterThePoint } from 'src/app/utills/SomeUtills';
 
 @Component({
   selector: 'app-statistic',
@@ -12,41 +13,68 @@ import { round0AfterThePoint } from 'src/app/utills/SomeUtills';
 export class StatisticComponent implements OnInit {
 
   averageControl: FormControl;
-  value = 2.5;
-
+  freePointsControl: FormControl;
+  
   numberThreePoints: number = 0;
   numberFourPoints: number = 0;
   numberFivePoints: number = 0;
   numberFreePoints: number = 0;
-
+  
   // emailFormControl
 
   firstDeltaCourse: string = "n/a";
   secondDeltaCourse: string = "n/a";
 
-  emailFormControl = new FormControl(2.0, [
-    Validators.required,
-  ]);
-
   // matcher = new MyErrorStateMatcher();
   avrg: number = 0;
+  
+  courses: ICourse[] = [];
 
-  courses: ICourse[];
-
-  constructor(private coursesService: CoursesService) {
+  
+  value = 2.5;
+  constructor(private coursesService: CoursesService, private router: Router) {
+    
     this.value = 4.5;
 
-    this.avrg = coursesService.average;
+    this.numberFreePoints = 2;
+
+    this.avrg = round2AfterThePoint (this.coursesService.average);
+    
     this.averageControl = new FormControl(this.avrg, [
       Validators.required,
     ]);
+    
 
-    this.courses = coursesService.getAllCourses();
-
+    this.freePointsControl = new FormControl(this.numberFreePoints, [
+      Validators.required,
+    ]);
+    // this.changeOfRoutes();
+    // this.router.events.subscribe((ev) => {
+    //   if (ev instanceof NavigationEnd) { this.changeOfRoutes() ;}
+    // });
+    
 
   }
 
+
+  changeOfRoutes() {
+    this.initDataStatistic();
+  
+    console.log("changeOfRoutes ...");
+  
+  }
+
+  
+  
   ngOnInit() {
+    
+    this.initDataStatistic();
+  }
+  
+  initDataStatistic() {
+
+    this.avrg = round2AfterThePoint (this.coursesService.average);
+    this.courses = this.coursesService.getAllCourses();
 
     this.numberFreePoints = this.numberThreePoints = this.numberFourPoints
       = this.numberFivePoints = round0AfterThePoint(this.avrg);
@@ -61,10 +89,18 @@ export class StatisticComponent implements OnInit {
       this.numberFivePoints = this.ReachAvrg(mark, 5);
       this.numberFourPoints = this.ReachAvrg(mark, 4);
       this.numberThreePoints = this.ReachAvrg(mark, 3);
-      this.numberFreePoints = this.ReachAvrg(mark, this.emailFormControl.value);
+      this.numberFreePoints = this.ReachAvrg(mark, this.freePointsControl.value);
+
+    });
+
+    this.freePointsControl.valueChanges.subscribe(val => {
+      const mark =  this.averageControl.value;
+      this.numberFreePoints = this.ReachAvrg(mark, this.freePointsControl.value);
     });
 
     this.BestCourses();
+
+    console.log(this.courses);
   }
 
   BestCourses() {
@@ -92,7 +128,7 @@ export class StatisticComponent implements OnInit {
   logit() {
 
     console.log("Value : ", this.value);
-    console.log("emailFormControl : ", this.emailFormControl);
+    console.log("emailFormControl : ", this.freePointsControl);
     this.numberThreePoints += 1;
   }
 
@@ -122,4 +158,3 @@ export class StatisticComponent implements OnInit {
   }
 
 }
-
