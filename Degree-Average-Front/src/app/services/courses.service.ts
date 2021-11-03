@@ -1,10 +1,11 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import { ICourse } from '../models/ICourse';
 import { round2AfterThePoint } from '../utills/SomeUtills';
 
 
 @Injectable()
-export class CoursesService implements OnInit {
+export class CoursesService implements OnInit, OnDestroy {
 
   data: ICourse[] = ELEMENT_DATA;
 
@@ -12,13 +13,35 @@ export class CoursesService implements OnInit {
   points: number = 0;
   average: number = 0;
 
+  averageChanged: number = 0;
+  markValueChange: number = 0;
+
+
+  numberAverage: number = 0;
+  numberAverageSubject: Subject<number> = new Subject<number>();
+
+  private subscriptionNumberAverage: Subscription;
+  private unsubscribe = new Subject<void>();
+
   constructor() {
     this.markValue = this.data.reduce((prev, curr) => prev + curr.mark * curr.points, 0);
     this.points = this.data.reduce((prev, curr) => prev + curr.points, 0);
     this.average = this.markValue / this.points;
-    this.average = round2AfterThePoint(this.average);
+    this.average = this.averageChanged = round2AfterThePoint(this.average);
+
+    this.markValueChange = this.markValue;
 
     this.sortByTime();
+
+    this.subscriptionNumberAverage = this.numberAverageSubject.subscribe((value: number) => {
+      this.numberAverage = value;
+    });
+
+
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionNumberAverage.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -56,6 +79,7 @@ export class CoursesService implements OnInit {
     }
 
     this.markValue += mark * points;
+    this.markValueChange = this.markValue; // new Line to check and all ... 
     this.points += points;
     this.average = this.markValue / this.points;
   }
@@ -95,8 +119,45 @@ export class CoursesService implements OnInit {
   }
 
   deleteCourseByCourse(course: ICourse) {
-
+    const index = this.data.findIndex(c => c.course == course.course);
+    this.data.splice(index, 1);
   }
+
+  getMarkChange(marksTotalValue: number, pointTotal: number): number {
+    return round2AfterThePoint(marksTotalValue / pointTotal);
+  }
+
+
+  calculateNewAverageChanged(markNew: number, points: number, markOld: number) {
+
+    const avrg = this.averageChanged;
+
+    const markValueChangeLocal = this.markValueChange + (markNew - markOld) * points;
+    //this.markValueChange += (markNew - markOld) * points;
+
+
+    // if (!addValue) {
+    //   points *= -1;
+    // }
+    // this.averageChanged = this.getMarkChange(); 
+    // this.markValue += mark * points;
+    // this.points += points;
+    this.numberAverage++;
+    // this.numberAverageSubject.next(this.numberAverage);
+
+    const averageChangedLocal = this.getMarkChange(markValueChangeLocal, this.points)
+    this.numberAverageSubject.next(averageChangedLocal);
+
+    //  this.numberAverageSubject.next(this.numberAverage);
+
+    return this.averageChanged;
+  }
+
+
+
+
+
+
 
 }
 

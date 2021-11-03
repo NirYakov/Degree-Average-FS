@@ -36,6 +36,8 @@ export class TableCoursesComponent implements AfterViewInit {
 
   markControl: FormControl;
 
+  lastValue = 0;
+
   // sort: MatSort = new MatSort();
 
   ngAfterViewInit() {
@@ -50,10 +52,25 @@ export class TableCoursesComponent implements AfterViewInit {
     //    <button mat-stroked-button color="primary" (click)="foo()">Primary</button>
     this.dataSource.paginator = this.paginator;
 
-    this.markControl = new FormControl( [
+    this.markControl = new FormControl(100, [
       Validators.required,
     ]);
-    
+
+
+    // this.markControl.valueChanges.subscribe(val => {
+    //  // this.markControlValChange(val);
+
+    //   // this.numberFivePoints = this.ReachAvrg(mark, 5);
+    // });
+
+  }
+
+  markControlValChange(val: any) {
+    // console.log("expandedElement : ", this.expandedElement);
+    console.log("val mark Control : ", val);
+
+
+
   }
 
   ConvertToTitleCase(str: string) {
@@ -80,8 +97,11 @@ export class TableCoursesComponent implements AfterViewInit {
 
   deleteCourse(course: ICourse) {
     // this.dataSource = this.courseService.deleteCourseByIndex(index);
-    const index = this.dataSource.data.findIndex(c => c.course == course.course);
-    this.courseService.data.splice(index, 1);
+    // const index = this.dataSource.data.findIndex(c => c.course == course.course);
+
+    this.courseService.deleteCourseByCourse(course);
+
+    // this.courseService.data.splice(index, 1);
     // this.dataSource = new MatTableDataSource(this.courseService.data); // SOLVED !!
 
     // this.dataSource.data
@@ -93,7 +113,7 @@ export class TableCoursesComponent implements AfterViewInit {
     //  this.dataToDisplay = this.dataToDisplay.slice(0, -1);
     //this.dataSource.data. setData(this.dataToDisplay);
 
-    console.log("Here : ", index);
+    console.log("Here : And some deleted ... ");
   }
 
   announceSortChange() {
@@ -101,6 +121,49 @@ export class TableCoursesComponent implements AfterViewInit {
 
     // this.dataSource.sortData(  this.dataSource.data ,this.sort );
 
+  }
+
+  // expandedElementSame : ICourse | null = null;
+
+  editCourse(course: ICourse) {
+
+    if (this.expandedElement) {
+      const number = this.markControl.value;
+
+      this.markControlValChange(number);
+      console.log(" this.expandedElement :", this.expandedElement);
+
+      this.courseService.calculateNewAverageChanged(number, this.expandedElement.points, this.expandedElement.mark);
+    }
+  }
+
+  expentedAction(element: any) {
+    let result = 'collapsed';
+
+    if (element == this.expandedElement) {
+
+      result = 'expanded';
+      // this.markControlValChange(100);
+
+      // if (this.expandedElementSame !== this.expandedElement) 
+      // {
+
+      //  }
+
+      // if (this.lastValue !== this.markControl.value) {
+      //   // this.markControlValChange(this.markControl.value);
+      //   this.lastValue = this.markControl.value;
+
+      //   console.log("EXPENTED !! ", this.lastValue);
+      // }
+
+      // this.markControlValChange(this.markControl.value);
+
+
+      // element == this.expandedElement ? 'expanded' : 'collapsed' // this what was in the stuffs
+    }
+
+    return result;
   }
 
 }
