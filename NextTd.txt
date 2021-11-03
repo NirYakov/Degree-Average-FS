@@ -1,0 +1,11 @@
+back end ...
+
+delete .
+update / edit .
+
+design better .
+
+user role password and email and the page with it .
+
+'forgetpassword' that go and get 
+    your password to email or something like that.

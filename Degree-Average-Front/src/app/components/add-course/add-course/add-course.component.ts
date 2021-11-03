@@ -60,8 +60,17 @@ export class AddCourseComponent implements OnInit {
 
     if (this.courseForm.valid) {
       const course: ICourse = this.courseForm.value;
-      console.warn(course);
-      this.courseService.addCourse(course);
+      // console.warn(course);
+
+      if (this.courseService.data.findIndex(n => n.course === course.course)) {
+        this.courseService.addCourse(course);
+        console.log("added : ", course);
+      }else 
+      {
+        console.log("this course name already exist !!", course);
+
+      }
+
     }
     else {
       console.error("Not All Fields Filled!");
