@@ -24,6 +24,7 @@ import { AddCourseComponent } from './components/add-course/add-course/add-cours
 import {MatError, MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
+import { YearTableComponent } from './components/info-data/year-table/year-table.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MatSortModule } from '@angular/material/sort';
     InfoDataComponent,
     StatisticComponent,
     AddCourseComponent,
+    YearTableComponent
 
   ],
   imports: [

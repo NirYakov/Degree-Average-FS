@@ -20,7 +20,11 @@ export class CoursesService implements OnInit, OnDestroy {
   numberAverage: number = 0;
   numberAverageSubject: Subject<number> = new Subject<number>();
 
+  averageSubject: Subject<number> = new Subject<number>();
+
   private subscriptionNumberAverage: Subscription;
+  private subscriptionAverage: Subscription;
+
   private unsubscribe = new Subject<void>();
 
   constructor() {
@@ -37,11 +41,17 @@ export class CoursesService implements OnInit, OnDestroy {
       this.numberAverage = value;
     });
 
+    this.subscriptionAverage = this.averageSubject.subscribe((value: number) => {
+      this.average = value;
+      this.numberAverageSubject.next(value);
+    });
+
 
   }
 
   ngOnDestroy(): void {
     this.subscriptionNumberAverage.unsubscribe();
+    this.subscriptionAverage.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -121,6 +131,9 @@ export class CoursesService implements OnInit, OnDestroy {
   deleteCourseByCourse(course: ICourse) {
     const index = this.data.findIndex(c => c.course == course.course);
     this.data.splice(index, 1);
+    const minus = false;
+    this.calculateNewAverage(course.mark, course.points, minus);
+    this.averageSubject.next(this.average);
   }
 
   getMarkChange(marksTotalValue: number, pointTotal: number): number {
@@ -161,6 +174,8 @@ export class CoursesService implements OnInit, OnDestroy {
 
 }
 
+
+const ELEMENT_DATA2: ICourse[] = [];
 
 const ELEMENT_DATA: ICourse[] = [
   {

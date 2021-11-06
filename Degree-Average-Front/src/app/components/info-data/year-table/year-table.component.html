@@ -1,0 +1,92 @@
+<p>
+  year-table works!
+</p>
+
+
+<form>
+
+  <mat-form-field appearance="standard">
+    <mat-label>Year</mat-label>
+    <mat-select [(value)]="selectedYear" [formControl]="year">
+      <mat-option [value]="item" *ngFor="let item of numbersYears" value="option">{{item}}</mat-option>
+    </mat-select>
+
+    <!-- <mat-select>
+      <mat-option value="option">Option</mat-option>
+    </mat-select> -->
+
+    <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+  </mat-form-field>
+
+</form>
+
+<p></p>
+
+<div>
+  Table of data for Year No. {{selectedYear}}
+
+  Valueee {{this.year.value}}
+
+  <p></p>
+
+  <div> Hellow</div>
+
+<mat-divider></mat-divider>
+
+  <!-- <app-table-courses></app-table-courses> -->
+
+  <p></p>
+
+<div>
+  Year Average : {{ showWith2PointsAfterDecimal(yearAverage)}}
+</div>
+
+  <p></p>
+
+
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" style="color: red;" matSort
+  (matSortChange)="announceSortChange()">
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay; let i = index">
+
+    <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.position}} </td> -->
+
+    <th mat-header-cell *matHeaderCellDef class="header-table" mat-sort-header sortActionDescription="Sort by name">
+      {{ConvertToTitleCase(column)}} </th>
+
+    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+
+  </ng-container>
+
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+
+    
+
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+
+<!-- <mat-paginator #paginator [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[10, 25, 50]">
+</mat-paginator> -->
+
+<mat-divider></mat-divider>
+
+</div>
+
+
+<mat-divider></mat-divider>
+
+
+<!-- <mat-form-field appearance="fill">
+    <mat-label>Select me</mat-label>
+    <mat-select>
+      <mat-option value="option">Option</mat-option>
+    </mat-select>
+    <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+  </mat-form-field> -->

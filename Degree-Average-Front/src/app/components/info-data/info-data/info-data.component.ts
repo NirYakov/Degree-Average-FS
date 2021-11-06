@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CoursesService } from 'src/app/services/courses.service';
-import { round2AfterThePoint } from 'src/app/utills/SomeUtills';
+import { round2AfterThePoint, showWith2PointsAfterDecimal } from 'src/app/utills/SomeUtills';
 
 @Component({
   selector: 'app-info-data',
@@ -26,13 +26,18 @@ export class InfoDataComponent implements OnInit {
     this.averageChanged = this.average;
     
    // this.subject = coursesService.numberAverageSubject.subscribe(value => {});
-    coursesService.numberAverageSubject.subscribe(value => { this.averageChanged = value; });
+  coursesService.numberAverageSubject.subscribe(value => { this.averageChanged = value; });
+  coursesService.averageSubject.subscribe(value => { this.average = value; });
   }
 
   ngOnInit() {
   }
 
 
+  showWith2PointsAfterDecimal(num : number) 
+  {
+    return showWith2PointsAfterDecimal(num);
+  }
 
 
 }

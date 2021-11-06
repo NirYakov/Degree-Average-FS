@@ -12,72 +12,80 @@ import { round0AfterThePoint, round2AfterThePoint } from 'src/app/utills/SomeUti
 })
 export class StatisticComponent implements OnInit {
 
+  numbersYears: number[] = [1,2,3,4];
+  selectedYear = 0;
+
+
+
   averageControl: FormControl;
   freePointsControl: FormControl;
-  
+
   numberThreePoints: number = 0;
   numberFourPoints: number = 0;
   numberFivePoints: number = 0;
   numberFreePoints: number = 0;
-  
+
   // emailFormControl
 
   firstDeltaCourse: string = "n/a";
   secondDeltaCourse: string = "n/a";
+  thirdDeltaCourse: string = "n/a";
 
   // matcher = new MyErrorStateMatcher();
   avrg: number = 0;
-  
+
   courses: ICourse[] = [];
 
-  
-  value = 2.5;
   constructor(private coursesService: CoursesService, private router: Router) {
-    
-    this.value = 4.5;
+
+    this.courses = this.coursesService.getAllCourses();
+
 
     this.numberFreePoints = 2;
 
-    this.avrg = round2AfterThePoint (this.coursesService.average);
-    
+    this.avrg = round2AfterThePoint(this.coursesService.average);
+
     this.averageControl = new FormControl(this.avrg, [
       Validators.required,
     ]);
-    
 
-    this.freePointsControl = new FormControl(this.numberFreePoints, [
-      Validators.required,
-    ]);
+
+
+      this.freePointsControl = new FormControl(this.numberFreePoints, [
+        Validators.required,
+      ]);
     // this.changeOfRoutes();
     // this.router.events.subscribe((ev) => {
     //   if (ev instanceof NavigationEnd) { this.changeOfRoutes() ;}
     // });
-    
+
 
   }
 
 
   changeOfRoutes() {
     this.initDataStatistic();
-  
+
     console.log("changeOfRoutes ...");
-  
+
   }
 
-  
-  
+
+
   ngOnInit() {
-    
+
     this.initDataStatistic();
   }
-  
+
   initDataStatistic() {
 
-    this.avrg = round2AfterThePoint (this.coursesService.average);
-    this.courses = this.coursesService.getAllCourses();
-
-    this.numberFreePoints = this.numberThreePoints = this.numberFourPoints
-      = this.numberFivePoints = round0AfterThePoint(this.avrg);
+    this.avrg = round2AfterThePoint(this.coursesService.average);
+    
+   
+    
+    
+    // this.numberFreePoints = this.numberThreePoints = this.numberFourPoints
+    //   = this.numberFivePoints = round0AfterThePoint(this.avrg);
 
     //   this.averageControl.get('fieldName')
     // .valueChanges
@@ -86,15 +94,15 @@ export class StatisticComponent implements OnInit {
 
     this.averageControl.valueChanges.subscribe(val => {
       const mark = val;
-      this.numberFivePoints = this.ReachAvrg(mark, 5);
-      this.numberFourPoints = this.ReachAvrg(mark, 4);
-      this.numberThreePoints = this.ReachAvrg(mark, 3);
+      // this.numberFivePoints = this.ReachAvrg(mark, 5);
+      // this.numberFourPoints = this.ReachAvrg(mark, 4);
+      // this.numberThreePoints = this.ReachAvrg(mark, 3);
       this.numberFreePoints = this.ReachAvrg(mark, this.freePointsControl.value);
 
     });
 
     this.freePointsControl.valueChanges.subscribe(val => {
-      const mark =  this.averageControl.value;
+      const mark = this.averageControl.value;
       this.numberFreePoints = this.ReachAvrg(mark, this.freePointsControl.value);
     });
 
@@ -106,14 +114,16 @@ export class StatisticComponent implements OnInit {
   BestCourses() {
     const length = this.courses.length
 
-    if (length >= 2) {
+    if (length >= 3) {
       this.courses.sort((x: ICourse, y: ICourse) => {
         const xDelta = this.deltaCal(x);
         const yDelta = this.deltaCal(y);
         return xDelta - yDelta;
       });
+
       this.firstDeltaCourse = this.courses[length - 1].course;
       this.secondDeltaCourse = this.courses[length - 2].course;
+      this.thirdDeltaCourse = this.courses[length - 3].course;
 
     } else if (this.courses.length == 1) {
       this.firstDeltaCourse = this.courses[0].course;
@@ -127,7 +137,6 @@ export class StatisticComponent implements OnInit {
 
   logit() {
 
-    console.log("Value : ", this.value);
     console.log("emailFormControl : ", this.freePointsControl);
     this.numberThreePoints += 1;
   }

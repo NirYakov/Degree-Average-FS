@@ -1,5 +1,10 @@
 <form class="example-form box">
 
+  <!-- <div *ngFor="let item of numbersYears">
+
+    <button color="primary">Year {{item}} </button>
+  </div> -->
+
   <h2>Current Average : {{avrg}}</h2>
   <mat-divider></mat-divider>
 
@@ -17,25 +22,18 @@
 
   <p>Next Test With To Get The Average : </p>
 
-  <!-- min="{{avrg}}" -->
 
-  <div class="sidespace">
 
-    <p [ngClass]="{'make-red' : numberThreePoints > 100 }"> Three Points : {{numberThreePoints}}</p>
-    <p [ngClass]="{'make-red' :  numberFourPoints > 100 }"> Four Points : {{numberFourPoints}}</p>
-    <p [ngClass]="{'make-red' :   numberFivePoints > 100 }"> Five Points : {{numberFivePoints}}</p>
 
-  </div>
+  <!-- <mat-divider></mat-divider> -->
 
-  <mat-divider></mat-divider>
-
-  <section>
+  <!-- <section>
     <div class="example-button-row">
       <button mat-stroked-button color="primary" (click)="logit()">Primary</button>
       <a mat-stroked-button href="https://www.google.com/" target="_blank">Link</a>
     </div>
   </section>
-  <mat-divider></mat-divider>
+  <mat-divider></mat-divider> -->
 
 
 
@@ -51,8 +49,8 @@
   </form>
 
   <div class="sidespace">
-    <p>Value : {{value}}</p>
-    <p>Value FormControl : {{freePointsControl.value}}</p>
+    <!-- <p>Value : {{value}}</p> -->
+    <!-- <p>Value FormControl : {{freePointsControl.value}}</p> -->
     <p [ngClass]="{'make-red' :   numberFreePoints > 100 }">Freestyle Points : {{ numberFreePoints }}</p>
   </div>
 
@@ -63,20 +61,61 @@
 
   <div class="sidespace">
 
-    <p> First : {{firstDeltaCourse}}</p>
-    <p> Second : {{secondDeltaCourse}}</p>
+    <p> <span> First : {{firstDeltaCourse}}</span></p>
+    <p> <span> Second : {{secondDeltaCourse}}</span></p>
+    <p> <span> Third : {{thirdDeltaCourse}}</span></p>
 
   </div>
 
+
   <mat-divider></mat-divider>
 
+  <p></p>
+  <!-- <mat-select>
+    <mat-option value="one">First option</mat-option>
+    <mat-option value="two">Second option</mat-option>
+  </mat-select> -->
+
+
+  <p></p>
+
+  <p></p>
+
+  <!-- <form class="example-form"> -->
+  <!-- <mat-form-field appearance="standard">
+    <mat-label>Year</mat-label>
+    <mat-select [(value)]="selectedYear" formControlName="year">
+      <mat-option [value]="item" *ngFor="let item of numbersYears" value="option">{{item}}</mat-option>
+    </mat-select>
+    <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
+  </mat-form-field> -->
+  <!-- </form> -->
+
+  <p></p>
+
+
+  <app-year-table>
+
+  </app-year-table>
+
+  <p></p>
+
+
+  <!-- <form class="example-form">
+    <mat-form-field class="example-full-width" appearance="standard">
+      <mat-label>Points</mat-label>
+      <input mdInput [formControl]="freePointsControl" type="number" matInput placeholder="Points" value="value" min="0"
+        max="12" step="0.5">
+    </mat-form-field>
+  </form> -->
 
   <!-- <div *ngFor="let item of courses">
 
     <p>
-
+      
       Name : {{item.course}} , Delta : {{  ((100 - item.mark  )* item.points) }}
-
+      
     </p>
-
+    
   </div> -->
+</form>
