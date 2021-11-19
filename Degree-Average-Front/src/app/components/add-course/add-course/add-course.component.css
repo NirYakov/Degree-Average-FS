@@ -1,3 +1,30 @@
 .example-container .mat-form-field + .mat-form-field {
-    margin-left: 8px;
-  }
+  margin-left: 8px;
+}
+
+.tryCenter {
+  align-items: center;
+  width: 100%;
+  color: royalblue;
+
+  display: flex;
+
+  min-width: 40%;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  /* width: 60rem; */ /* Nice short*/
+}
+
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+
+.example-full-width {
+  width: 100%;
+}

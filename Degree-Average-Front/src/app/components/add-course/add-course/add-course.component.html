@@ -1,17 +1,25 @@
 
 
-  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="example-form">
+<div class="tryCenter">
 
+  
+  <!-- <mat-form-field hintLabel="Max 24 characters" appearance="standard">
+  <mat-label>Course Name</mat-label>
+  <input matInput #input maxlength="24" placeholder="Yoga..." >
+  <mat-hint align="end">{{input.value?.length || 0}}/24</mat-hint>
+</mat-form-field> -->
 
   <mat-divider></mat-divider>
+  
+  
+  
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="example-form">
 
+    <!-- <div class="example-container"> -->
+  <div >
+    
 
-
-
-  <div class="example-container">
-
-
-    <mat-form-field hintLabel="Max 24 characters" appearance="standard">
+    <mat-form-field hintLabel="Max 24 characters" appearance="standard" class="example-full-width">
       <mat-label>Course Name</mat-label>
       <input matInput #input maxlength="24" placeholder="Yoga..." formControlName="course">
       <mat-hint align="end">{{input.value?.length || 0}}/24</mat-hint>
@@ -24,7 +32,7 @@
       <mat-label>Mark</mat-label>
       <input mdInput type="number" matInput placeholder="Mark" [value]="80" min="0" max="100" step="1"  formControlName="mark">
     </mat-form-field>
-
+    
     <p></p>
 
     <mat-form-field class="example-full-width" appearance="standard">
@@ -35,22 +43,22 @@
 
     <p></p>
 
-    <mat-form-field appearance="standard" >
+    <mat-form-field appearance="standard" class="example-full-width" >
       <mat-label>Semester</mat-label>
 
 
       <mat-select  [(value)]="selectedSemester" formControlName="semester" >
         <mat-option [value]="semester" *ngFor="let semester of semesters">{{ semester }}
         </mat-option>
-
+        
       </mat-select>
       <mat-hint align="end">Here's the dropdown arrow ^</mat-hint>
     </mat-form-field>
-
+    
 
     <p></p>
 
-    <mat-form-field appearance="standard">
+    <mat-form-field appearance="standard" class="example-full-width">
       <mat-label>Year</mat-label>
       <mat-select [(value)]="selectedYear"  formControlName="year" >
         <mat-option [value]="item"  *ngFor="let item of numbers" value="option">{{item}}</mat-option>
@@ -59,16 +67,18 @@
     </mat-form-field>
 
 
-  </div>
-
-
+    
+    
   <div style="margin-top: 2rem;"></div>
-
+  
   <section>
     <div class="example-button-row">
       <button type="submit" mat-stroked-button color="primary">Add</button>
     </div>
   </section>
-
+  
+</div>
 
 </form>
+
+</div>

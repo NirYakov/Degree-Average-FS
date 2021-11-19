@@ -57,11 +57,23 @@ export class TableCoursesComponent implements AfterViewInit {
     ]);
 
 
-    // this.markControl.valueChanges.subscribe(val => {
-    //  // this.markControlValChange(val);
+    this.markControl.valueChanges.subscribe(val => {
+      // this.markControlValChange(val);
 
-    //   // this.numberFivePoints = this.ReachAvrg(mark, 5);
-    // });
+      // this.numberFivePoints = this.ReachAvrg(mark, 5);
+
+      if (this.markControl.value > 100) {
+        this.markControl.setValue(100);
+      } else if (this.markControl.value < 0) {
+        this.markControl.setValue(0);
+      }
+
+      const number = this.markControl.value;
+
+      if (this.expandedElement !== null && (this.expandedElement.mark !== number)) {
+        this.editCourse(this.expandedElement);
+      }
+    });
 
   }
 
@@ -140,7 +152,7 @@ export class TableCoursesComponent implements AfterViewInit {
   expentedAction(element: any) {
     let result = 'collapsed';
 
-    if (element == this.expandedElement) {
+    if (element === this.expandedElement) {
 
       result = 'expanded';
       // this.markControlValChange(100);
@@ -161,6 +173,22 @@ export class TableCoursesComponent implements AfterViewInit {
 
 
       // element == this.expandedElement ? 'expanded' : 'collapsed' // this what was in the stuffs
+
+      // this.markControlValChange(this.markControl.value);
+      // console.log(element);
+
+      // const number = this.markControl.value;
+
+      // if (this.expandedElement !== null && (this.expandedElement.mark !== number ) ) {
+      //   this.editCourse(this.expandedElement);
+      // }
+
+
+      // console.log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+    }else 
+    {
+     // console.log("ELSEEEEEEEEEE EEEE    EEEEEEEE");
+
     }
 
     return result;

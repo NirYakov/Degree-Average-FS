@@ -1,21 +1,46 @@
-.tryCenter 
+.tryCenter {
+}
+
+
+.low {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center; 
+}
+
+.thick-txt {
+  font-weight: 550;
+}
+
+.underline-points 
 {
-
-
-
+  text-decoration: underline;
 }
 
 .box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .box div {
-    width: 100px;
-    height: 100px;
-  }
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center; */
+}
 
-  .morePadding {
-    margin-bottom: 2rem;
-  }
+.box div {
+  width: 100%;
+  height: 100px;
+
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.morePadding {
+  margin-bottom: 4rem;
+}
+
+/* .lesMar 
+  {
+    margin-left: -20rem;
+  } */
